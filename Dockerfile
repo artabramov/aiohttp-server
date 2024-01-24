@@ -14,10 +14,11 @@ RUN unlink /usr/bin/python3
 RUN ln -s /usr/bin/python3.11 /usr/bin/python3
 
 RUN pip3 install aiohttp
+RUN pip3 install asyncpg
+RUN pip3 install SQLAlchemy
 RUN pip3 freeze > /hide/requirements.txt
 
 RUN apt install -y git
 
 EXPOSE 80
 ENTRYPOINT ["/hide/entrypoint.sh"]
-# CMD tail -f /dev/null
