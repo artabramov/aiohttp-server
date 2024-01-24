@@ -19,5 +19,5 @@ RUN pip3 freeze > /hide/requirements.txt
 RUN apt install -y git
 
 EXPOSE 80
-# ENTRYPOINT ["/hide/entrypoint.sh"]
-CMD tail -f /dev/null
+ENTRYPOINT ["/hide/entrypoint.sh"]
+# CMD tail -f /dev/null
