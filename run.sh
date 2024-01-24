@@ -1,4 +1,2 @@
 docker build --no-cache -t hide-server .
-
-# make run
-docker run -dit --name hide-server hide-server
+docker run -dit -p 80:80 --name hide-server hide-server
