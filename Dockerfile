@@ -16,6 +16,7 @@ RUN ln -s /usr/bin/python3.11 /usr/bin/python3
 RUN pip3 install aiohttp
 RUN pip3 install asyncpg
 RUN pip3 install SQLAlchemy
+RUN pip3 install python-dotenv
 RUN pip3 freeze > /hide/requirements.txt
 
 RUN apt install -y git
