@@ -20,6 +20,8 @@ RUN pip3 install python-dotenv
 RUN pip3 freeze > /hide/requirements.txt
 
 RUN apt install -y git
+RUN apt install -y nginx
 
 EXPOSE 80
-ENTRYPOINT ["/hide/entrypoint.sh"]
+# ENTRYPOINT ["/hide/entrypoint.sh"]
+CMD tail -f /dev/null
