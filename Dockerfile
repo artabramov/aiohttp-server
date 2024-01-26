@@ -28,4 +28,3 @@ RUN cp --force ./supervisord.conf /etc/supervisor/
 
 EXPOSE 80
 ENTRYPOINT ["/hide/entrypoint.sh"]
-CMD tail -f /dev/null
