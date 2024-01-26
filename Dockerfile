@@ -30,5 +30,5 @@ RUN apt install -y supervisor
 RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80
-CMD ["/usr/bin/supervisord", "-n"]
-# ENTRYPOINT ["/hide/entrypoint.sh"]
+# CMD ["/usr/bin/supervisord", "-n"]
+ENTRYPOINT ["/hide/entrypoint.sh"]
