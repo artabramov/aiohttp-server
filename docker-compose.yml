@@ -37,7 +37,7 @@ services:
     image: docker.elastic.co/beats/filebeat:7.6.2
     container_name: filebeat
     depends_on:
-      - media-server
+      - hide-server
     restart: unless-stopped
     user: root
     volumes:
