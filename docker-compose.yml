@@ -58,6 +58,7 @@ services:
     container_name: hide-server
     restart: always
     volumes:
+    - ./nginx.conf:/etc/nginx/nginx.conf
     - nginx_log:/var/log/nginx
     - postgres_data:/var/lib/postgresql/14/main
     - postgres_log:/var/log/postgresql
