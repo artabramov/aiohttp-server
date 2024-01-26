@@ -76,6 +76,6 @@ volumes:
   nginx_log:
   postgres_data:
   postgres_log:
+  hide_log:
   # redis_log:
   # apache_log:
-  hide_log:
