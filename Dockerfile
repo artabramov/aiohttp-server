@@ -29,4 +29,4 @@ RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80
 # ENTRYPOINT ["/hide/entrypoint.sh"]
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-n"]
