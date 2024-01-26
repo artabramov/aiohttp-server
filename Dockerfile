@@ -28,5 +28,4 @@ RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80
-# ENTRYPOINT ["/hide/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-n"]
