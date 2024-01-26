@@ -21,7 +21,7 @@ RUN pip3 freeze > /hide/requirements.txt
 
 RUN apt install -y git
 RUN apt install -y nginx
-# RUN apt-get install -y redis
+RUN apt-get install -y redis
 RUN apt install -y postgresql
 RUN apt install -y supervisor
 
