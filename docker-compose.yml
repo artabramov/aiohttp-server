@@ -1,0 +1,77 @@
+version: "3.2"
+services:
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.6.2
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    ports:
+      - 5601:5601
+    links:
+      - elasticsearch
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+    container_name: elasticsearch
+    depends_on:
+      - filebeat
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.6.2
+    container_name: filebeat
+    depends_on:
+      - media-server
+    restart: unless-stopped
+    user: root
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - postgres_log:/var/log/postgresql:ro
+      # - redis_log:/var/log/redis:ro
+      # - apache_log:/var/log/apache2:ro
+      # - app_log:/var/log/app:ro
+    command: ["filebeat", "-e", "-strict.perms=false"]
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  hide-server:
+    image: hide-server
+    container_name: hide-server
+    restart: always
+    volumes:
+    - postgres_data:/var/lib/postgresql/14/main
+    - postgres_log:/var/log/postgresql
+    # - redis_log:/var/log/redis
+    # - apache_log:/var/log/apache2
+    # - hide_log:/var/log/hide
+    ports:
+    - "80:80"
+    - "8080:8080"
+    - "5432:5432"
+    # - "6379:6379"
+
+volumes:
+  elasticsearch_data:
+  postgres_data:
+  postgres_log:
+  # redis_log:
+  # apache_log:
+  hide_log:
