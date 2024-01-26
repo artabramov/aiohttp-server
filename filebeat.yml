@@ -2,8 +2,8 @@ filebeat.inputs:
 - type: log
   enabled: true
   paths:
-    # - /var/log/apache2/access.log
-    # - /var/log/apache2/error.log
+    - /var/log/nginx/access.log
+    - /var/log/nginx/error.log
     # - /var/log/media-server/*.log*
     - /var/log/postgresql/*.log*
     # - /var/log/redis/redis-server.log*
@@ -14,9 +14,9 @@ output.elasticsearch:
   username: "elastic"
   password: "changeme"
   indices:
-  # - index: "apache-%{+yyyy.MM.dd}"
-  #   when.equals:
-  #     event.module: "apache"
+  - index: "nginx-%{+yyyy.MM.dd}"
+    when.equals:
+      event.module: "nginx"
   - index: "postgres-%{+yyyy.MM.dd}"
     when.equals:
       event.module: "postgresql"
@@ -28,13 +28,13 @@ output.elasticsearch:
   #     log.file.path: "/var/log/media-server/"
 
 filebeat.modules:
-# - module: apache
-#   access:
-#     enabled: true
-#     var.paths: ["/var/log/apache2/access.log"]
-#   error:
-#     enabled: true
-#     var.paths: ["/var/log/apache2/error.log"]
+- module: nginx
+  access:
+    enabled: true
+    var.paths: ["/var/log/nginx/access.log"]
+  error:
+    enabled: true
+    var.paths: ["/var/log/nginx/error.log"]
 - module: postgresql
   log:
     enabled: true

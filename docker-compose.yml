@@ -42,6 +42,7 @@ services:
     user: root
     volumes:
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - nginx_log:/var/log/nginx:ro
       - postgres_log:/var/log/postgresql:ro
       # - redis_log:/var/log/redis:ro
       # - apache_log:/var/log/apache2:ro
@@ -57,10 +58,10 @@ services:
     container_name: hide-server
     restart: always
     volumes:
+    - nginx_log:/var/log/nginx
     - postgres_data:/var/lib/postgresql/14/main
     - postgres_log:/var/log/postgresql
     # - redis_log:/var/log/redis
-    # - apache_log:/var/log/apache2
     # - hide_log:/var/log/hide
     ports:
     - "80:80"
@@ -70,6 +71,7 @@ services:
 
 volumes:
   elasticsearch_data:
+  nginx_log:
   postgres_data:
   postgres_log:
   # redis_log:
