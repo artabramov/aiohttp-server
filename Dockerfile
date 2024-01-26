@@ -27,5 +27,5 @@ RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
 RUN cp --force ./supervisord.conf /etc/supervisor/
 
 EXPOSE 80
-# ENTRYPOINT ["/hide/entrypoint.sh"]
+ENTRYPOINT ["/hide/entrypoint.sh"]
 CMD tail -f /dev/null
