@@ -26,7 +26,7 @@ RUN apt install -y postgresql
 RUN apt install -y supervisor
 
 RUN cp --force ./supervisord.conf /etc/supervisor/
-RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
+# RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80
