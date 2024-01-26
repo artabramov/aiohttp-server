@@ -21,6 +21,10 @@ RUN pip3 freeze > /hide/requirements.txt
 
 RUN apt install -y git
 RUN apt install -y nginx
+RUN apt install -y supervisor
+
+RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
+RUN cp --force ./supervisord.conf /etc/supervisor/
 
 EXPOSE 80
 # ENTRYPOINT ["/hide/entrypoint.sh"]
