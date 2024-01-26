@@ -8,7 +8,7 @@
             "program": "/hide/app/app.py",
             "args": [
                 "--host", "127.0.0.1",
-                "--port", "8080",
+                "--port", "5000",
             ],
             "console": "integratedTerminal"
         }
