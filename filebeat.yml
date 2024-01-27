@@ -6,7 +6,7 @@ filebeat.inputs:
     - /var/log/nginx/error.log
     - /var/log/postgresql/*.log*
     - /var/log/redis/redis-server.log*
-    # - /var/log/media-server/*.log*
+    - /var/log/hide/*.log*
 
 output.elasticsearch:
   enabled: true
@@ -23,9 +23,9 @@ output.elasticsearch:
     - index: "redis-%{+yyyy.MM.dd}"
       when.equals:
         event.module: "redis"
-    # - index: "app-%{+yyyy.MM.dd}"
-    #   when.contains:
-    #     log.file.path: "/var/log/media-server/"
+    - index: "hide-%{+yyyy.MM.dd}"
+      when.contains:
+        log.file.path: "/var/log/hide/"
 
 filebeat.modules:
   - module: nginx
