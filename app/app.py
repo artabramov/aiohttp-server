@@ -7,14 +7,10 @@ from context import set_context_var, get_context_var
 from log import get_log
 import time
 import os
+from routes.user_routes import HelloRoute
 
-
-async def hello(request):
-    res = {
-        "res": "Hello, world",
-    }
-    log.debug("Something logged.")
-    return web.json_response(res)
+config = get_config()
+log = get_log()
 
 
 @middleware
@@ -40,10 +36,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--host", help="Set the aiohttp host.", type=str, default="0.0.0.0")
 parser.add_argument("--port", help="Set the aiohttp port.", type=int, default=8081)
 
-config = get_config()
-log = get_log()
 app = web.Application(middlewares=[before_request, after_request])
-app.add_routes([web.get("/", hello)])
+app.add_routes([web.get("/", HelloRoute.select)])
 
 
 if __name__ == "__main__":
