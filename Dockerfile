@@ -32,6 +32,7 @@ RUN cp --force ./supervisord.conf /etc/supervisor/
 RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 RUN mkdir /var/log/hide
+RUN chmod -R 777 /var/log/hide
 # RUN touch /var/log/hide/hide.log
 # RUN chown -R nobody:nobody /var/log/hide
 
