@@ -1,35 +1,46 @@
 import argparse
 from aiohttp import web
 from aiohttp.web import middleware
-from config import set_config
+from config import  get_config
 from uuid import uuid4
+from context import set_context_var, get_context_var
 from log import get_log
+import time
 
 
 async def hello(request):
     res = {
         "res": "Hello, world",
-        "trace_request_uuid": request["trace_request_uuid"],
     }
-    tmp = request.app["LOG_FILENAME"]
-    request["log"].debug("FUCK!")
+    log.debug("Something logged.")
     return web.json_response(res)
 
 
 @middleware
-async def middleware1(request, handler):
-    # request["trace_request_uuid"] = str(uuid4())
-    request["log"] = get_log(request)
+async def before_request(request, handler):
+    set_context_var("trace_request_uuid", str(uuid4()))
+    set_context_var("request_start_time", time.time())
+    log.debug("Request received, method=%s, url=%s, headers=%s." % (
+        request.method, str(request.url), str(request.headers)))
     return await handler(request)
+
+
+@middleware
+async def after_request(request, handler):
+    response = await handler(request)
+    request_elapsed_time = time.time() - get_context_var("request_start_time")
+    log.debug("Response sent, request_elapsed_time=%s, status=%s, headers=%s, body=%s." % (
+        request_elapsed_time, response.status, str(response.headers), response.body.decode("utf-8")))
+    return response
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--host", help="Set the aiohttp host.", type=str, default="0.0.0.0")
 parser.add_argument("--port", help="Set the aiohttp port.", type=int, default=8081)
 
-app = web.Application(middlewares=[middleware1])
-set_config(app)
-# log = get_log(app)
+config = get_config()
+log = get_log()
+app = web.Application(middlewares=[before_request, after_request])
 app.add_routes([web.get("/", hello)])
 
 

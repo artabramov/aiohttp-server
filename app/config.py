@@ -36,3 +36,31 @@ def set_config(app):
 
         app[key] = value
     return config
+
+
+
+@lru_cache
+def get_config() -> Config:
+    """Get config object from file or cache."""
+    dotenv = dotenv_values(DOTENV_FILE)
+    config = Config()
+
+    for key in dotenv:
+        value = os.environ.get(key)
+
+        if value == "None":
+            config.__dict__[key] = None
+
+        elif value == "True":
+            config.__dict__[key] = True
+
+        elif value == "False":
+            config.__dict__[key] = False
+
+        elif value.isdigit():
+            config.__dict__[key] = int(os.environ.get(key))
+
+        else:
+            config.__dict__[key] = os.environ.get(key)
+
+    return config
