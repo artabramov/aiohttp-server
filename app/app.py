@@ -6,6 +6,7 @@ from uuid import uuid4
 from context import set_context_var, get_context_var
 from log import get_log
 import time
+import os
 
 
 async def hello(request):
@@ -19,6 +20,7 @@ async def hello(request):
 @middleware
 async def before_request(request, handler):
     set_context_var("trace_request_uuid", str(uuid4()))
+    set_context_var("pid", os.getpid())
     set_context_var("request_start_time", time.time())
     log.debug("Request received, method=%s, url=%s, headers=%s." % (
         request.method, str(request.url), str(request.headers)))

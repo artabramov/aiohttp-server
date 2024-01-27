@@ -14,7 +14,8 @@ def get_log():
         """Contextual filter for logging."""
         def filter(self, message: object) -> bool:
             """Customize the contextual filter."""
-            message.uuid = get_context_var("trace_request_uuid")
+            message.trace_request_uuid = get_context_var("trace_request_uuid")
+            message.pid = get_context_var("pid")
             return True
 
 
