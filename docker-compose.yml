@@ -57,8 +57,8 @@ services:
     container_name: hide-server
     restart: always
     volumes:
-      - ./supervisord.conf:/etc/supervisor/supervisord.conf
-      - ./nginx.conf:/etc/nginx/sites-enabled/nginx.conf
+      # - ./supervisord.conf:/etc/supervisor/supervisord.conf
+      # - ./nginx.conf:/etc/nginx/sites-enabled/nginx.conf
       - nginx_log:/var/log/nginx
       - postgres_data:/var/lib/postgresql/14/main
       - postgres_log:/var/log/postgresql

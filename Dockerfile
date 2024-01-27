@@ -19,14 +19,21 @@ RUN pip3 install SQLAlchemy
 RUN pip3 install python-dotenv
 RUN pip3 freeze > /hide/requirements.txt
 
+RUN mkdir /var/log/hide
+# RUN touch /var/log/hide/hide.log
+RUN chown -R nobody:nobody /var/log/hide
+
 RUN apt install -y git
 RUN apt install -y nginx
+RUN apt-get install -y cron
+RUN apt-get upgrade -y cron
+RUN apt-get install -y ntp
 RUN apt-get install -y redis
 RUN apt install -y postgresql
 RUN apt install -y supervisor
 
-# RUN cp --force ./supervisord.conf /etc/supervisor/
-# RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
+RUN cp --force ./supervisord.conf /etc/supervisor/
+RUN cp --force ./nginx.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
 EXPOSE 80
