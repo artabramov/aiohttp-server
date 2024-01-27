@@ -17,36 +17,14 @@ class Config:
     LOG_FILES_LIMIT: int
 
 
-def set_config(app):
-    """Set config for aiohttp app."""
-    config = dotenv_values(DOTENV_FILE)
-    for key in config:
-        value = config[key]
-        if value == "None":
-            value = None
-
-        elif value == "True":
-            value = True
-
-        elif value == "False":
-            value = False
-
-        elif value.isdigit():
-            value = int(value)
-
-        app[key] = value
-    return config
-
-
-
 @lru_cache
 def get_config() -> Config:
     """Get config object from file or cache."""
-    dotenv = dotenv_values(DOTENV_FILE)
+    env_values = dotenv_values(DOTENV_FILE)
     config = Config()
 
-    for key in dotenv:
-        value = os.environ.get(key)
+    for key in env_values:
+        value = env_values[key]
 
         if value == "None":
             config.__dict__[key] = None
@@ -58,9 +36,9 @@ def get_config() -> Config:
             config.__dict__[key] = False
 
         elif value.isdigit():
-            config.__dict__[key] = int(os.environ.get(key))
+            config.__dict__[key] = int(value)
 
         else:
-            config.__dict__[key] = os.environ.get(key)
+            config.__dict__[key] = value
 
     return config
