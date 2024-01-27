@@ -21,7 +21,7 @@ RUN pip3 freeze > /hide/requirements.txt
 
 RUN mkdir /var/log/hide
 # RUN touch /var/log/hide/hide.log
-RUN chown -R nobody:nobody /var/log/hide
+# RUN chown -R nobody:nobody /var/log/hide
 
 RUN apt install -y git
 RUN apt install -y nginx
