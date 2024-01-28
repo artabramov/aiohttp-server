@@ -2,8 +2,8 @@
 import logging
 from logging.handlers import RotatingFileHandler
 from logging import Filter
-from context import get_ctx_var
 from config import  get_config
+from context import ctx
 
 
 config = get_config()
@@ -13,8 +13,9 @@ class ContextualFilter(Filter):
     """Contextual filter for logging."""
     def filter(self, message: object) -> bool:
         """Customize the contextual filter."""
-        message.trace_request_uuid = get_ctx_var("trace_request_uuid")
-        message.pid = get_ctx_var("pid")
+        message.trace_request_uuid = ctx.trace_request_uuid
+        message.pid = ctx.pid
+        tmp = ctx.request_start_time
         return True
 
 

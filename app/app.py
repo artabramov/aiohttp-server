@@ -3,11 +3,11 @@ from aiohttp import web
 from aiohttp.web import middleware
 from config import  get_config
 from uuid import uuid4
-from context import set_ctx_var, get_ctx_var
 from log import get_log
 import time
 import os
 from routes.user_routes import HelloRoute
+from context import ctx
 
 config = get_config()
 log = get_log()
@@ -15,10 +15,9 @@ log = get_log()
 
 @middleware
 async def before_request(request, handler):
-    set_ctx_var("trace_request_uuid", str(uuid4()))
-    set_ctx_var("pid", os.getpid())
-    set_ctx_var("request_start_time", time.time())
-    # g.fuck = "FUCK"
+    ctx.trace_request_uuid = str(uuid4())
+    ctx.pid = os.getpid()
+    ctx.request_start_time = time.time()
     log.debug("Request received, method=%s, url=%s, headers=%s." % (
         request.method, str(request.url), str(request.headers)))
     return await handler(request)
@@ -27,8 +26,7 @@ async def before_request(request, handler):
 @middleware
 async def after_request(request, handler):
     response = await handler(request)
-    request_elapsed_time = time.time() - get_ctx_var("request_start_time")
-    # fuck = g.fuck
+    request_elapsed_time = time.time() - ctx.request_start_time
     log.debug("Response sent, request_elapsed_time=%s, status=%s, headers=%s, body=%s." % (
         request_elapsed_time, response.status, str(response.headers), response.body.decode("utf-8")))
     return response
