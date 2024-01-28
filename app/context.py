@@ -1,19 +1,19 @@
-"""Request context."""
+"""Context variables."""
 
 from contextvars import ContextVar
 from typing import Any
 
-context_data: ContextVar[dict] = ContextVar('context_data', default={})
+context_vars: ContextVar[dict] = ContextVar('context_vars', default={})
 
 
-def set_context_var(key: str, value: Any) -> None:
-    """Set context variable."""
-    _context_data = context_data.get()
+def set_ctx_var(key: str, value: Any) -> None:
+    """Set a new value for the context variable in the current context."""
+    _context_data = context_vars.get()
     _context_data[key] = value
-    context_data.set(_context_data)
+    context_vars.set(_context_data)
 
 
-def get_context_var(key: str):
-    """Get context variable."""
-    _context_data = context_data.get()
+def get_ctx_var(key: str):
+    """Return a value for the context variable for the current context."""
+    _context_data = context_vars.get()
     return _context_data.get(key)
