@@ -16,6 +16,7 @@ RUN apt-get install -y python3-pip
 # RUN ln -s /usr/bin/x86_64-linux-gnu-python3.11-config /usr/bin/python3-config
 
 RUN pip3 install aiohttp
+RUN pip3 install aiohttp-swagger
 RUN pip3 install asyncpg
 RUN pip3 install SQLAlchemy
 RUN pip3 install python-dotenv

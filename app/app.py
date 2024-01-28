@@ -5,9 +5,10 @@ from config import  get_config
 from uuid import uuid4
 import time
 import os
-from routes.user_routes import HelloRoute
+from routes.hello_routes import HelloRoute
 from context import ctx
 from log import log
+from aiohttp_swagger import setup_swagger
 
 config = get_config()
 
@@ -37,6 +38,7 @@ parser.add_argument("--port", help="Set the aiohttp port.", type=int, default=80
 
 app = web.Application(middlewares=[before_request, after_request])
 app.add_routes([web.get("/", HelloRoute.select)])
+setup_swagger(app, swagger_url="/doc")
 
 
 if __name__ == "__main__":
