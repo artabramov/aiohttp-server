@@ -1,7 +1,5 @@
 from aiohttp import web
-from log import get_log
-
-log = get_log()
+from log import log
 
 
 class HelloRoute:

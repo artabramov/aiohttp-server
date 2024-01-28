@@ -3,14 +3,13 @@ from aiohttp import web
 from aiohttp.web import middleware
 from config import  get_config
 from uuid import uuid4
-from log import get_log
 import time
 import os
 from routes.user_routes import HelloRoute
 from context import ctx
+from log import log
 
 config = get_config()
-log = get_log()
 
 
 @middleware

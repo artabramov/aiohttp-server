@@ -7,8 +7,8 @@ context_vars: ContextVar[dict] = ContextVar('context_vars', default={})
 
 
 class LocalContext:
-    """The class is used to declare and work with context variables.
-    
+    """
+    The class is used to declare and work with context variables.
     https://docs.python.org/3/library/contextvars.html
     """
 

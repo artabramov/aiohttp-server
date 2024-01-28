@@ -8,10 +8,12 @@ WORKDIR /hide
 RUN apt install -y software-properties-common
 RUN add-apt-repository ppa:deadsnakes/ppa
 
-RUN apt install -y python3.11 python3.11-dev
+# RUN apt install -y python3.11 python3.11-dev
 RUN apt-get install -y python3-pip
-RUN unlink /usr/bin/python3
-RUN ln -s /usr/bin/python3.11 /usr/bin/python3
+# RUN unlink /usr/bin/python3
+# RUN ln -s /usr/bin/python3.11 /usr/bin/python3
+# RUN unlink /usr/bin/python3-config
+# RUN ln -s /usr/bin/x86_64-linux-gnu-python3.11-config /usr/bin/python3-config
 
 RUN pip3 install aiohttp
 RUN pip3 install asyncpg
