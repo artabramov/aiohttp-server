@@ -37,8 +37,8 @@ parser.add_argument("--host", help="Set the aiohttp host.", type=str, default="0
 parser.add_argument("--port", help="Set the aiohttp port.", type=int, default=8081)
 
 app = web.Application(middlewares=[before_request, after_request])
-app.add_routes([web.get("/", HelloRoute.select)])
-setup_swagger(app, swagger_url="/doc")
+app.add_routes([web.get("/api/v1/", HelloRoute.select)])
+setup_swagger(app, swagger_url="/apidocs")
 
 
 if __name__ == "__main__":
