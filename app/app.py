@@ -6,6 +6,7 @@ from uuid import uuid4
 import time
 import os
 from routes.hello_routes import HelloRoute
+from routes.user_routes import UserRoute
 from context import ctx
 from log import log
 from aiohttp_swagger import setup_swagger
@@ -37,7 +38,9 @@ parser.add_argument("--host", help="Set the aiohttp host.", type=str, default="0
 parser.add_argument("--port", help="Set the aiohttp port.", type=int, default=8081)
 
 app = web.Application(middlewares=[before_request, after_request])
-app.add_routes([web.get("/api/v1/", HelloRoute.select)])
+app.add_routes([
+    web.get("/api/v1/", HelloRoute.select),
+    web.post("/api/v1/user", UserRoute.register)])
 setup_swagger(app, swagger_url="/apidocs")
 
 
