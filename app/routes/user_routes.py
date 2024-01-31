@@ -1,5 +1,6 @@
 from aiohttp import web
 from log import log
+from session import get_session
 
 
 class UserRoute:
@@ -29,6 +30,7 @@ class UserRoute:
             "405":
                 description: invalid HTTP Method
         """
+        session = get_session()
         res = {
             "res": "Hello, world",
         }

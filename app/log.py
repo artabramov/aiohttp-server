@@ -2,7 +2,7 @@
 import logging
 from logging.handlers import RotatingFileHandler
 from logging import Filter
-from config import  get_config
+from appconfig import  get_config
 from context import ctx
 
 

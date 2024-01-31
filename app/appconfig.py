@@ -1,6 +1,5 @@
 """Create config from dotenv file."""
 
-import os
 from dotenv import dotenv_values
 from functools import lru_cache
 
@@ -15,6 +14,14 @@ class Config:
     LOG_FILENAME: str
     LOG_FILESIZE: int
     LOG_FILES_LIMIT: int
+
+    SQLALCHEMY_USERNAME: str
+    SQLALCHEMY_PASSWORD: str
+    SQLALCHEMY_HOST: str
+    SQLALCHEMY_PORT: int
+    SQLALCHEMY_DATABASE: str
+    SQLALCHEMY_AUTOCOMMIT: bool
+    SQLALCHEMY_AUTOFLUSH: bool
 
 
 @lru_cache

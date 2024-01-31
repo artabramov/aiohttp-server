@@ -1,7 +1,7 @@
 import argparse
 from aiohttp import web
 from aiohttp.web import middleware
-from config import  get_config
+from appconfig import  get_config
 from uuid import uuid4
 import time
 import os
@@ -10,6 +10,7 @@ from routes.user_routes import UserRoute
 from context import ctx
 from log import log
 from aiohttp_swagger import setup_swagger
+
 
 config = get_config()
 
