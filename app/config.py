@@ -14,13 +14,13 @@ class Config:
     LOG_FILESIZE: int
     LOG_FILES_LIMIT: int
 
-    SQLALCHEMY_USERNAME: str
-    SQLALCHEMY_PASSWORD: str
-    SQLALCHEMY_HOST: str
-    SQLALCHEMY_PORT: int
-    SQLALCHEMY_DATABASE: str
-    SQLALCHEMY_AUTOCOMMIT: bool
-    SQLALCHEMY_AUTOFLUSH: bool
+    PG_USERNAME: str
+    PG_PASSWORD: str
+    PG_HOST: str
+    PG_PORT: int
+    PG_DATABASE: str
+    PG_AUTOCOMMIT: bool
+    PG_AUTOFLUSH: bool
 
 
 @lru_cache

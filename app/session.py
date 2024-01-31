@@ -9,8 +9,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 config = get_config()
 connection_string = 'postgresql+asyncpg://%s:%s@%s:%s/%s' % (
-    config.SQLALCHEMY_USERNAME, config.SQLALCHEMY_PASSWORD, config.SQLALCHEMY_HOST, config.SQLALCHEMY_PORT,
-    config.SQLALCHEMY_DATABASE)
+    config.PG_USERNAME, config.PG_PASSWORD, config.PG_HOST, config.PG_PORT,
+    config.PG_DATABASE)
 
 engine = create_async_engine(
     connection_string,
@@ -20,10 +20,10 @@ engine = create_async_engine(
 
 def async_session_generator():
     return sessionmaker(
-        autocommit=config.SQLALCHEMY_AUTOCOMMIT, autoflush=config.SQLALCHEMY_AUTOFLUSH, bind=engine, class_=AsyncSession
+        autocommit=config.PG_AUTOCOMMIT, autoflush=config.PG_AUTOFLUSH, bind=engine, class_=AsyncSession
     )
 
-# SessionLocal = sessionmaker(autocommit=config.SQLALCHEMY_AUTOCOMMIT, autoflush=config.SQLALCHEMY_AUTOFLUSH, bind=engine)
+# SessionLocal = sessionmaker(autocommit=config.PG_AUTOCOMMIT, autoflush=config.PG_AUTOFLUSH, bind=engine)
 # Base = declarative_base()
 
 
