@@ -1,4 +1,4 @@
-"""Create config."""
+"""Config."""
 
 from dotenv import dotenv_values
 from functools import lru_cache

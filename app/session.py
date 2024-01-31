@@ -18,14 +18,12 @@ engine = create_async_engine(
     future=True,
 )
 
+Base = declarative_base()
+
 def async_session_generator():
     return sessionmaker(
         autocommit=config.PG_AUTOCOMMIT, autoflush=config.PG_AUTOFLUSH, bind=engine, class_=AsyncSession
     )
-
-# SessionLocal = sessionmaker(autocommit=config.PG_AUTOCOMMIT, autoflush=config.PG_AUTOFLUSH, bind=engine)
-# Base = declarative_base()
-
 
 @asynccontextmanager
 async def get_session():

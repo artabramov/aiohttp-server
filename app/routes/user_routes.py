@@ -1,6 +1,7 @@
 from aiohttp import web
 from log import log
 from session import get_session
+from models.user_models import User, UserMeta
 
 
 class UserRoute:
