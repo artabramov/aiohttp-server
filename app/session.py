@@ -1,8 +1,10 @@
 """Provides Postgres database session object."""
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from appconfig import get_config
+from config import get_config
 from sqlalchemy.ext.asyncio import create_async_engine
+from contextlib import asynccontextmanager
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 config = get_config()
@@ -16,14 +18,25 @@ engine = create_async_engine(
     future=True,
 )
 
-SessionLocal = sessionmaker(autocommit=config.SQLALCHEMY_AUTOCOMMIT, autoflush=config.SQLALCHEMY_AUTOFLUSH, bind=engine)
-Base = declarative_base()
+def async_session_generator():
+    return sessionmaker(
+        autocommit=config.SQLALCHEMY_AUTOCOMMIT, autoflush=config.SQLALCHEMY_AUTOFLUSH, bind=engine, class_=AsyncSession
+    )
+
+# SessionLocal = sessionmaker(autocommit=config.SQLALCHEMY_AUTOCOMMIT, autoflush=config.SQLALCHEMY_AUTOFLUSH, bind=engine)
+# Base = declarative_base()
 
 
-def get_session():
-    """Return SQLAlchemy session object."""
-    session = SessionLocal()
+@asynccontextmanager
+async def get_session():
     try:
-        yield session
+        async_session = async_session_generator()
+        async with async_session() as session:
+            yield session
+
+    except:
+        await session.rollback()
+        raise
+
     finally:
-        session.close()
+        await session.close()

@@ -1,10 +1,9 @@
-"""Create config from dotenv file."""
+"""Create config."""
 
 from dotenv import dotenv_values
 from functools import lru_cache
 
 DOTENV_FILE = "/hide/.env"
-
 
 class Config:
     """Config dataclass."""
@@ -26,26 +25,23 @@ class Config:
 
 @lru_cache
 def get_config() -> Config:
-    """Get config object from file or cache."""
+    """Create config object from dotenv file."""
     env_values = dotenv_values(DOTENV_FILE)
     config = Config()
 
     for key in env_values:
         value = env_values[key]
 
-        if value == "None":
-            config.__dict__[key] = None
+        if Config.__annotations__[key] == str:
+            config.__dict__[key] = value
 
-        elif value == "True":
-            config.__dict__[key] = True
-
-        elif value == "False":
-            config.__dict__[key] = False
-
-        elif value.isdigit():
+        elif Config.__annotations__[key] == int:
             config.__dict__[key] = int(value)
 
+        elif Config.__annotations__[key] == bool:
+            config.__dict__[key] = True if value.lower() == "true" else False
+
         else:
-            config.__dict__[key] = value
+            config.__dict__[key] = None
 
     return config

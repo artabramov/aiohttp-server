@@ -1,7 +1,7 @@
 import argparse
 from aiohttp import web
 from aiohttp.web import middleware
-from appconfig import  get_config
+from config import  get_config
 from uuid import uuid4
 import time
 import os

@@ -17,11 +17,6 @@ class UserRoute:
           in: body
           required: true
           description: Created user object
-        - name: first_name
-          type: string
-          in: body
-          required: true
-          description: Created user object
         produces:
         - text/plain
         responses:
@@ -32,7 +27,7 @@ class UserRoute:
         """
         session = get_session()
         res = {
-            "res": "Hello, world",
+            "res": "User registered",
         }
         log.debug("User registered.")
         return web.json_response(res)
