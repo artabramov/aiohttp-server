@@ -10,9 +10,18 @@ from routes.user_routes import UserRoute
 from context import ctx
 from log import log
 from aiohttp_swagger import setup_swagger
+from session import create_tables
 
 
 config = get_config()
+
+
+async def on_startup(app):
+    await create_tables()
+
+
+async def on_cleanup(app):
+    ...
 
 
 @middleware
@@ -39,6 +48,8 @@ parser.add_argument("--host", help="Set the aiohttp host.", type=str, default="0
 parser.add_argument("--port", help="Set the aiohttp port.", type=int, default=8081)
 
 app = web.Application(middlewares=[before_request, after_request])
+app.on_startup.append(on_startup)
+app.on_cleanup.append(on_cleanup)
 app.add_routes([
     web.get("/api/v1/", HelloRoute.select),
     web.post("/api/v1/user", UserRoute.register)])

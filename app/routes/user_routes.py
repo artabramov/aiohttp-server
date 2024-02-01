@@ -26,7 +26,6 @@ class UserRoute:
             "405":
                 description: invalid HTTP Method
         """
-        session = get_session()
         res = {
             "res": "User registered",
         }
